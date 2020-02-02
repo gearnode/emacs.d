@@ -2,9 +2,9 @@
 (require 'seq)
 
 ;; Package
-(package-initialize)
-
 (setq package-user-dir "~/.emacs.d/packages")
+
+(package-initialize)
 
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")
@@ -12,13 +12,13 @@
 
 (setq package-selected-packages
       '(company
+	exec-path-from-shell
         company-go
         company-quickhelp
         csv-mode
         disable-mouse
         dockerfile-mode
         erlang
-	exec-path-from-shell
         forge
         go-mode
         helm
@@ -29,7 +29,8 @@
         mustache-mode
         protobuf-mode
         terraform-mode
-        yaml-mode))
+	yaml-mode
+	yasnippet))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -69,6 +70,9 @@
 ;; disable-mode
 (global-disable-mouse-mode)
 (setq-default global-disable-mouse-mode-lighter "")
+
+;; yasnippet
+(setq yas-snippet-dirs '("~/emacs.d/snippets"))
 
 ;; company-mode
 (require 'company)
@@ -169,7 +173,7 @@
  '(custom-enabled-themes (quote (tango-dark)))
  '(package-selected-packages
    (quote
-    (ztree company-quickhelp exec-path-from-shell terraform-mode helm-ag json-mode forge elixir-mode erlang disable-mouse company-go company protobuf-mode yaml-mode markdown-mode go-mode org-plus-contrib org magit helm))))
+    (yasnippet ztree company-quickhelp exec-path-from-shell terraform-mode helm-ag json-mode forge elixir-mode erlang disable-mouse company-go company protobuf-mode yaml-mode markdown-mode go-mode org-plus-contrib org magit helm))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
