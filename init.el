@@ -4,6 +4,8 @@
 ;; Package
 (package-initialize)
 
+(setq package-user-dir "~/.emacs.d/packages")
+
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")
 			 ("org" . "https://orgmode.org/elpa/")))
@@ -85,6 +87,10 @@
 (define-key company-active-map (kbd "TAB") 'company-complete-selection)
 (define-key company-active-map [tab] 'company-complete-selection)
 
+;; magit-mode / forge-mode
+(with-eval-after-load 'magit
+  (require 'forge))
+
 ;; HELM {
 (require 'helm-config)
 
@@ -163,7 +169,7 @@
  '(custom-enabled-themes (quote (tango-dark)))
  '(package-selected-packages
    (quote
-    (company-quickhelp exec-path-from-shell terraform-mode helm-ag json-mode forge elixir-mode erlang disable-mouse company-go company protobuf-mode yaml-mode markdown-mode go-mode org-plus-contrib org magit helm))))
+    (ztree company-quickhelp exec-path-from-shell terraform-mode helm-ag json-mode forge elixir-mode erlang disable-mouse company-go company protobuf-mode yaml-mode markdown-mode go-mode org-plus-contrib org magit helm))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
