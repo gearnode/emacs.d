@@ -1,0 +1,176 @@
+* Emacs configuration
+** General
+
+#+BEGIN_SRC emacs-lisp
+  (setq enable-local-variables nil)
+#+END_SRC
+
+*** Auto save
+#+BEGIN_SRC emacs-lisp
+  (setq make-backup-files nil)
+  (setq auto-save-default nil)
+
+  (setq desktop-path (list user-emacs-directory))
+  (setq desktop-auto-save-timeout 30)
+  (desktop-save-mode 1)
+#+END_SRC
+
+*** Auto delete trailing whitespaces
+#+BEGIN_SRC emacs-lisp
+  (defun gearnode/remove-trailing-whitespaces ()
+    (delete-trailing-whitespace))
+
+  (add-hook 'before-save-hook 'gearremove-trailing-whitespaces)
+#+END_SRC
+
+*** Style
+#+BEGIN_SRC emacs-lisp
+  (face-spec-set 'default '((t :font "Roboto Mono for Powerline")))
+#+END_SRC
+
+Display line number in the gutter.
+#+BEGIN_SRC emacs-lisp
+  (setq column-number-mode t)
+  (global-display-line-numbers-mode)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (blink-cursor-mode 0)
+  (setq x-stretch-cursor t)
+#+END_SRC
+
+*** Window
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(height . 101))
+  (add-to-list 'default-frame-alist '(width . 170))
+
+  (setq inhibit-startup-screen t)
+  (menu-bar-mode -1)
+  (toggle-scroll-bar -1)
+  (tool-bar-mode -1)
+#+END_SRC
+
+*** Alias yes or no
+#+BEGIN_SRC emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+*** Load PATH env
+#+BEGIN_SRC emacs-lisp
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+#+END_SRC
+
+*** Cursor
+#+BEGIN_SRC emacs-lisp
+  (blink-cursor-mode 0)
+  (setq x-stretch-cursor t)
+#+END_SRC
+
+** Modes
+*** helm
+#+BEGIN_SRC emacs-lisp
+  (require 'helm)
+
+  (helm-mode 1)
+
+  (setq helm-always-two-window nil)
+  (setq helm-display-buffer-default-height 16)
+  (setq helm-default-display-buffer-functions '(display-buffer-in-side-window))
+
+  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
+  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+
+
+  (setq helm-buffer-max-length 30)
+
+  (setq helm-boring-buffer-regexp-list
+	(list
+	 "\\*"
+	 "\\*Echo Area"
+	 "\\*Minibuf"
+	 "\\*Shell Command Output\\*"
+	 "\\*helm "
+	 "\\*godoc "))
+#+END_SRC
+
+*** magit & forge
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x g") 'magit-status)
+
+  (with-eval-after-load 'magit
+    (require 'forge))
+#+END_SRC
+*** company
+#+BEGIN_SRC emacs-lisp
+  (require 'company)
+
+  (company-quickhelp-mode 1)
+
+  (setf company-idle-delay nil)
+
+  (add-hook 'after-init-hook 'global-company-mode)
+
+  (global-set-key (kbd "M-TAB") 'company-complete)
+  (define-key emacs-lisp-mode-map (kbd "M-TAB") 'company-complete)
+
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-active-map (kbd "TAB") 'company-complete-selection)
+  (define-key company-active-map [tab] 'company-complete-selection)
+#+END_SRC
+*** protobuf
+#+BEGIN_SRC emacs-lisp
+  (require 'protobuf-mode)
+
+  (defun gearnode/protobuf-mode-init ()
+    (c-add-style "protobuf"'((c-basic-offset . 2)) t))
+
+  (add-hook 'protobuf-mode-hook 'gearnode/protobuf-mode-init)
+#+END_SRC
+*** markdown
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+  (add-to-list 'auto-mode-alist '("\\.mkd\\'" . markdown-mode))
+#+END_SRC
+*** json
+#+BEGIN_SRC emacs-lisp
+  (defun gearnode/json-mode-init ()
+    (setq js-indent-level 2))
+
+  (add-hook 'json-mode-hook 'gearnode/json-mode-init)
+#+END_SRC
+*** makefile
+#+BEGIN_SRC emacs-lisp
+  (defun gearnode/makefile-mode-init ()
+    (setq tab-width 8))
+
+  (add-hook 'makefile-mode-hook 'gearnode/makefile-mode-init)
+#+END_SRC
+*** go
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'before-save-hook 'gofmt-before-save)
+#+END_SRC
+*** disable
+#+BEGIN_SRC emacs-lisp
+  (global-disable-mouse-mode)
+  (setq-default global-disable-mouse-mode-lighter "")
+#+END_SRC
+*** yasnippet
+#+BEGIN_SRC emacs-lisp
+  (setq yas-snippet-dir
+	(expand-file-name "snippets"
+			  user-emacs-directory))
+#+END_SRC
+*** org
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((C . t)
+     (makefile . t)
+     (shell . t)
+     (sql . t)
+     (ruby . t)))
+#+END_SRC
