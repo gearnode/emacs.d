@@ -1,6 +1,5 @@
 * Emacs configuration
 ** General
-
 #+BEGIN_SRC emacs-lisp
   (setq enable-local-variables nil)
 #+END_SRC
@@ -28,15 +27,15 @@
   (face-spec-set 'default '((t :font "Roboto Mono for Powerline")))
 #+END_SRC
 
-Display line number in the gutter.
+Replace tab by space
 #+BEGIN_SRC emacs-lisp
-  (setq column-number-mode t)
-  (global-display-line-numbers-mode)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq-default show-trailing-whitespace t)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (blink-cursor-mode 0)
-  (setq x-stretch-cursor t)
+(setq-default fill-column 78)
 #+END_SRC
 
 *** Window
@@ -48,6 +47,17 @@ Display line number in the gutter.
   (menu-bar-mode -1)
   (toggle-scroll-bar -1)
   (tool-bar-mode -1)
+#+END_SRC
+
+Display line number in the gutter.
+#+BEGIN_SRC emacs-lisp
+  (setq column-number-mode t)
+  (global-display-line-numbers-mode)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (blink-cursor-mode 0)
+  (setq x-stretch-cursor t)
 #+END_SRC
 
 *** Alias yes or no
