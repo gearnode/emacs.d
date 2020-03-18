@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 (require 'seq)
 
-
 (setq package-user-dir
       (expand-file-name "packages"
                         user-emacs-directory))
@@ -13,7 +12,7 @@
 
 (require 'org)
 (org-babel-load-file
-  (expand-file-name "configuration.org"
+  (expand-file-name "README.org"
                    user-emacs-directory))
 
 (custom-set-variables
