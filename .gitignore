@@ -2,3 +2,6 @@
 .emacs.desktop.lock
 auto-save-list/
 transient/
+README.el
+eshell/
+forge-database.sqlite
