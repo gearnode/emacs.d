@@ -25,7 +25,7 @@
  '(custom-enabled-themes (quote (tango-dark)))
  '(package-selected-packages
    (quote
-    (nginx-mode dockerfile-mode yasnippet ztree company-quickhelp exec-path-from-shell terraform-mode helm-ag json-mode forge elixir-mode erlang disable-mouse company-go company protobuf-mode yaml-mode markdown-mode go-mode org-plus-contrib org magit helm))))
+    (helm-projectile projectile nginx-mode dockerfile-mode yasnippet ztree company-quickhelp exec-path-from-shell terraform-mode helm-ag json-mode forge elixir-mode erlang disable-mouse company-go company protobuf-mode yaml-mode markdown-mode go-mode org-plus-contrib org magit helm))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
