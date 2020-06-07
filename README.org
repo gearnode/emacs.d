@@ -19,7 +19,7 @@
   (defun gearnode/remove-trailing-whitespaces ()
     (delete-trailing-whitespace))
 
-  (add-hook 'before-save-hook 'gearremove-trailing-whitespaces)
+  (add-hook 'before-save-hook 'gearnode/remove-trailing-whitespaces)
 #+END_SRC
 
 *** Style
