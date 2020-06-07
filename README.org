@@ -32,9 +32,6 @@ Replace tab by space
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 (setq-default show-trailing-whitespace t)
-
-
-(setq c-default-style "linux" c-basic-offset 4)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
