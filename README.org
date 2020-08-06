@@ -195,3 +195,13 @@ Display line number in the gutter.
 (require 'helm-projectile)
 (helm-projectile-on)
 #+END_SRC
+
+*** hl-todo
+#+BEGIN_SRC emacs-lisp
+(global-hl-todo-mode)
+
+(setq hl-todo-keyword-faces
+      '(("TODO"   . "#FF0000")
+        ("DEBUG"  . "#1E90FF")
+        ("XXX"   . "#1E90FF")))
+#+END_SRC
