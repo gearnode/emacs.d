@@ -201,7 +201,7 @@ Display line number in the gutter.
 (global-hl-todo-mode)
 
 (setq hl-todo-keyword-faces
-      '(("TODO"   . "#FF0000")
-        ("DEBUG"  . "#1E90FF")
+      '(("TODO"  . "#FF0000")
+        ("DEBUG" . "#1E90FF")
         ("XXX"   . "#1E90FF")))
 #+END_SRC
