@@ -23,7 +23,11 @@
   (add-hook 'before-save-hook 'gearnode/remove-trailing-whitespaces)
 #+END_SRC
 
-*** Style
+*** Fill column
+#+BEGIN_SRC emacs-lisp
+(add-hook 'text-mode-hook 'auto-fill-mode)
+#+END_SRC
+*** Font
 #+BEGIN_SRC emacs-lisp
   (face-spec-set 'default '((t :font "Noto Sans Mono")))
 #+END_SRC
@@ -176,6 +180,7 @@ Display line number in the gutter.
 			  user-emacs-directory))
 #+END_SRC
 *** org
+Enable languages:
 #+BEGIN_SRC emacs-lisp
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -184,6 +189,22 @@ Display line number in the gutter.
      (shell . t)
      (sql . t)
      (ruby . t)))
+#+END_SRC
+
+Prevent confirmation:
+#+BEGIN_SRC emacs-lisp
+(setq org-confirm-babel-evaluate nil)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq org-indent-indentation-per-level 1)
+(setq org-adapt-indentation nil)
+(setq org-hide-leading-stars 't)
+(setq org-hide-emphasis-markers t)
+(customize-set-variable 'org-blank-before-new-entry
+                        '((heading . nil)
+                          (plain-list-item . nil)))
+(setq org-cycle-separator-lines 1)
 #+END_SRC
 *** projectile
 #+BEGIN_SRC emacs-lisp
