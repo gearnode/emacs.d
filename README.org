@@ -2,6 +2,7 @@
 ** General
 #+BEGIN_SRC emacs-lisp
   (setq enable-local-variables nil)
+  (setq x-select-enable-primary t)
 #+END_SRC
 
 *** Auto save
@@ -24,7 +25,7 @@
 
 *** Style
 #+BEGIN_SRC emacs-lisp
-  (face-spec-set 'default '((t :font "Roboto Mono for Powerline")))
+  (face-spec-set 'default '((t :font "Noto Sans Mono")))
 #+END_SRC
 
 Replace tab by space
