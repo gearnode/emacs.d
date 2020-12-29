@@ -1,10 +1,6 @@
 #+TITLE: GNU Emacs configuration file
 #+AUTHOR: Bryan Frimin
 #+EMAIL: bryan@frimin.fr
-#+MACRO: export-date (eval (format-time-string "%F %R %z" (current-time)))
-
-+ Created: 2020-02-02
-+ Updated: *{{{export-date}}}*.
 
 * Basic configuration
 ** Rainbow mode
