@@ -68,7 +68,7 @@ Highlight changes whithin a line, not just the line itself.
 
 * Interface and interactions
 ** Go to last change
-ctrl-z for Emacs.
+Go back to the last cursor position.
 
 #+BEGIN_SRC emacs-lisp
   (use-package goto-last-change
@@ -136,6 +136,18 @@ relevance.
   (use-package emacs
     :config
     (setq mode-require-final-newline 'visit-save))
+#+END_SRC
+
+** Generic feedback
+#+BEGIN_SRC emacs-lisp
+  (use-package
+    :config
+    (setq frame-title-format '("%b"))
+    (setq echo-keystrokes 0.25)
+    (setq default-input-method "greek")
+    (setq ring-bell-function 'ignore)
+
+    (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
 * Language settings for prose and code
