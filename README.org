@@ -2,15 +2,26 @@
 #+AUTHOR: Bryan Frimin
 #+EMAIL: bryan@frimin.fr
 
-* Basic configuration
-** Rainbow mode
-:PROPERTIES:
-:CUSTOM_ID: h:rainbow-mode
-:END:
+This repository contains my ([[https://www.frimin.fr][Bryan Frimin]]) Emacs configuration. If you
+find a bug or have any question, feel free to open a Github issue or to
+contact me [[mailto:bryan@frimin.fr][by email]]. Please note that I do not currently review or
+accept any contribution.
+
+First change default Emacs memory management, I've a modern computer not
+an Apple II.
+#+BEGIN_SRC emacs-lisp
+  (setq read-process-output-max (* 1024 1024)) ; 1MB instead of 4KB
+  (setq gc-cons-threshold 100000000) ; 100MB instead of 800KB
+#+END_SRC
+
+Configure font and font size.
+#+BEGIN_SRC emacs-lisp
+  (face-spec-set 'default '((t :font "Noto Sans Mono")))
+  (set-face-attribute 'default nil :height 115)
+#+END_SRC
 
 This package is a minor mode to set background color to strings that
 match color name.
-
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
     :straight t
@@ -19,21 +30,97 @@ match color name.
     (setq rainbow-x-colors nil))
 #+END_SRC
 
-* Selection and search methods
-** Projects (projectile)
+Add a newline character when visiting or saving a buffer relevance.
 #+BEGIN_SRC emacs-lisp
+  (setq mode-require-final-newline 'visit-save)
 #+END_SRC
 
-** ripgrep (rg.el)
+Highligh keywords that are normally used in code comments.
 #+BEGIN_SRC emacs-lisp
+  (use-package hl-todo
+    :straight t
+    :config
+    (setq hl-todo-keyword-faces
+	  '(("TODO"  . "#FF0000")
+	    ("DEBUG" . "#1E90FF")
+	    ("XXX"   . "#1E90FF")))
+    :hook (prog-mode-hook . hl-todo-mode))
 #+END_SRC
 
-* Application and utilities
-This section contains configuration for programs like email clients, new
-readers, etc.
+Ensures buffers are updated whenever the file changes. A change can
+happen externally or by some other tool inside of Emacs.
+#+BEGIN_SRC emacs-lisp
+  (setq auto-revert-verbose t)
+  (global-auto-revert-mode)
+#+END_SRC
 
-** Interactive Git (magit)
-Magit is an interactive Git frontend.
+The standard line lengh is 80 characters. Having something less allows
+such things like quoting text, indent, etc.
+#+BEGIN_SRC emacs-lisp
+  (setq-default fill-column 72)
+  (global-display-fill-column-indicator-mode)
+#+END_SRC
+
+Shortcut to avoid typing =yes= or =no= each time.
+#+BEGIN_SRC emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+Turn off annoying bell.
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore)
+#+END_SRC
+
+Turns off Indent Tabs mode.
+#+BEGIN_SRC emacs-lisp
+  (setq-default indent-tabs-mode nil)
+#+END_SRC
+
+** Emacs history and state
+This sections contains configuration for Emacs state and history
+management.
+
+Remember where the cursor is in any given file.
+#+BEGIN_SRC emacs-lisp
+  (setq save-place-file "~/.emacs.d/saveplace")
+  (setq save-place-forget-unreadable-file t)
+  (save-place-mode 1)
+#+END_SRC
+
+Keep Emacs opened buffers after crash or kill.
+#+BEGIN_SRC emacs-lisp
+  (setq desktop-auto-save-timeout 300)
+  (setq desktop-dirname "~/.emacs.d/")
+  (setq desktop-base-file-name "desktop")
+  (setq desktop-files-not-to-save nil)
+  (setq desktop-globals-to-clean nil)
+  (setq desktop-load-locked-desktop t)
+  (setq desktop-missing-file-warning nil)
+  (setq desktop-restore-eager 0)
+  (setq desktop-restore-frames nil)
+  (setq desktop-save 'ask-if-new)
+  (desktop-save-mode 1)
+#+END_SRC
+
+Ensure Emacs starts in the =*scratch*= buffer.
+#+BEGIN_SRC emacs-lisp
+  (setq initial-buffer-choice t)
+  (setq inhibit-startup-echo-area-message "gearnode")
+  (setq inhibit-startup-screen t)
+  (setq inhibit-startup-buffer-menu t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (setq savehist-file "~/.emacs.d/savehist")
+  (setq history-length 1000)
+  (setq history-delete-duplicates t)
+  (setq savehist-save-minibuffer-history t)
+  (add-hook 'after-init-hook 'savehist-mode)
+#+END_SRC
+
+** Git
+Emacs version control seems nice, but too does not wrap Git as Magit
+do. Because I mainly works with Git I use magit instead of VC.
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :straight t
@@ -41,42 +128,266 @@ Magit is an interactive Git frontend.
     ("C-c g" . magit-status))
 #+END_SRC
 
-Configure commit style.
+Configure =git-commit= to follow my commit style
 #+BEGIN_SRC emacs-lisp
   (use-package git-commit
-    :after magit
     :config
     (setq git-commit-summary-max-length 50)
     (setq git-commit-known-pseudo-headers
-	  '("Signed-off-by"
-	    "Modified-by"
-	    "Cc"
-	    "Suggested-by"
-	    "Reported-by"))
+          '("Signed-off-by"
+            "Modified-by"
+            "Cc"
+            "Suggested-by"
+            "Reported-by"))
     (setq git-commit-style-convention-checks
-	  '(non-empty-second-line
-	    overlong-summary-line)))
+          '(non-empty-second-line
+            overlong-summary-line)))
 #+END_SRC
 
-Highlight changes whithin a line, not just the line itself.
+** Web browser
+I do not use Emacs has web browser but use the web browser binding to
+transform HTML email content in text one.
 #+BEGIN_SRC emacs-lisp
-  (use-package magit-diff
-    :after magit
-    :config
-    (setq magit-diff-refine-hunk t))
-#+END_SRC
-
-* Interface and interactions
-** Go to last change
-Go back to the last cursor position.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package goto-last-change
+  (use-package w3m
     :straight t
-    :bind ("C-z" . goto-last-change))
+    :config
+    (setq w3m-user-agent "42")
+    (setq w3m-add-user-agent t)
+    (setq w3m-default-save-directory "~/Download")
+    (setq w3m-fill-column 80))
 #+END_SRC
 
-** Narrowing selections (helm)
+Open link in new Firefox tab.
+#+BEGIN_SRC emacs-lisp
+  (setq browse-url-browser-function 'browse-url-firefox)
+  (setq browse-url-new-window-flag t)
+  (setq browse-url-firefox-new-window-is-tab t)
+#+END_SRC
+
+** GNUS
+This section contains my GNUS configuration.
+
+Bind =C-c m= to open GNUS.
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c m") 'gnus)
+#+END_SRC
+
+A bit of frontend to have cleaner interface.
+#+BEGIN_SRC emacs-lisp
+  (setq gnus-use-full-window nil)
+
+  (setq gnus-summary-line-format
+        (concat "%U%R %~(max-right 17)~(pad-right 17)&user-date;  "
+                "%~(max-right 20)~(pad-right 20)f %B%s\n"))
+
+  (setq gnus-user-date-format-alist '((t . "%d.%m.%Y %H:%M"))
+        gnus-sum-thread-tree-false-root ""
+        gnus-sum-thread-tree-indent " "
+        gnus-sum-thread-tree-root ""
+        gnus-sum-thread-tree-leaf-with-other "├─≻"
+        gnus-sum-thread-tree-single-leaf     "└─≻"
+        gnus-sum-thread-tree-vertical        "│")
+
+  (setq gnus-summary-thread-gathering-function
+        'gnus-gather-threads-by-subject)
+
+  (setq gnus-thread-sort-functions
+        '(gnus-thread-sort-by-number
+          gnus-thread-sort-by-total-score))
+
+  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+#+END_SRC
+
+Configure mailboxes.
+#+BEGIN_SRC emacs-lisp
+  (setq user-mail-address "bryan@frimin.fr")
+  (setq user-full-name "Bryan Frimin")
+  (setq message-user-fqdn "workstation.frimin.fr")
+
+  (setq gnus-select-method '(nnnil nil))
+  (setq gnus-secondary-select-methods
+        '((nntp "news.gwene.org")
+          (nnimap "frimin"
+                  (nnimap-address "imap.frimin.fr")
+                  (nnimap-server-port 993)
+                  (nnimap-stream ssl)
+                  (nnir-search-engine imap)
+                  (nnimap-inbox "INBOX")
+                  (signature "Bryan Frimin\n\
+                              https://www.frimin.fr\
+                              bryan@frimin.fr")
+                  (nnmail-expiry-target "nnimap+frimin:Deleted Messages")
+                  (nnmail-expiry-wait immediate))
+          (nnimap "gmail"
+                  (nnimap-address "imap.gmail.com")
+                  (nnimap-server-port 993)
+                  (nnimap-stream ssl)
+                  (nnir-search-engine imap)
+                  (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
+                  (nnmail-expiry-wait immediate))
+          (nnimap "exograd"
+                  (nnimap-address "imap.gmail.com")
+                  (nnimap-server-port 993)
+                  (nnimap-stream-ssl 993)
+                  (nnir-search-engine imap)
+                  (signature "Bryan Frimin\n\
+                              https://www.exograd.com\
+                              bryan.frimin@exograd.com")
+                  (nnmail-expiry-target "nnimap+exograd:[Gmail]/Trash")
+                  (nnmail-expiry-wait immediate))))
+
+  ;; Reply to mails with matching email address
+  (setq gnus-posting-styles
+        '((".*"
+           (address "Bryan Frimin <bryan@frimin.fr>")
+           (gcc "nnimap+frimin:Sent Messages")
+           ("X-Message-SMTP-Method"
+            "smtp smtp.frimin.fr 587 bryan@frimin.fr"))
+          ("exograd"
+           (address "Bryan Frimin <bryan.frimin@exograd.com")
+           (gcc "nnimap+exograd:[Gmail]/Sent Mail")
+           ("X-Message-SMTP-Method"
+            "smtp smtp.gmail.com 587 bryan.frimin@exograd.com"))
+          ("gmail"
+           (address "Bryan Frimin <friminb@gmail.com>")
+           (gcc "nnimap+exograd:[Gmail]/Sent Mail")
+           ("X-Message-SMTP-Method"
+            "smtp smtp.gmail.com 587 friminb@gmail.com"))))
+
+  (setq gnus-message-archive-method '(nnimap "imap.frimin.fr"))
+  (setq gnus-message-archive-group "Sent Messages")
+
+  (setq gnus-gcc-mark-as-read t)
+#+END_SRC
+
+Configure SMTP server.
+#+BEGIN_SRC emacs-lisp
+  (setq smtpmail-default-smtp-server "smtp.frimin.fr")
+  (setq smtpmail-smtp-server "smtp.frimin.fr")
+  (setq smtpmail-stream-type 'starttls)
+  (setq smtpmail-smtp-service 587)
+  (setq smtpmail-retries 7)
+  (setq smtpmail-queue-mail nil)
+  (setq send-mail-function 'smtpmail-send-it)
+  (setq message-send-mail-function 'smtpmail-send-it))
+#+END_SRC
+
+Make GNUS not check for any new newsgroups and stops gnus from trying to
+filter out outdated newsgroups.
+#+BEGIN_SRC emacs-lisp
+  (setq gnus-check-new-newsgroups nil)
+  (setq gnus-check-bogus-newsgroups nil)
+#+END_SRC
+
+Kill mail buffer after sending an email.
+#+BEGIN_SRC emacs-lisp
+  (setq message-kill-buffer-on-exit t)
+#+END_SRC
+
+** Languages
+Understand =camelCaseWords= as many words instead of one long word.
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'prog-mode-hook 'subword-mode)
+#+END_SRC
+
+*** Comment
+Basic configuration for the =newcomment= mode.
+- Replace =M-;= by =C-;=
+- Remove comment with =C-:=
+- Ident comment with =M-;=
+#+BEGIN_SRC emacs-lisp
+  (defun gearnode/comment (&optional arg)
+    (interactive "*P")
+    (if (use-region-p)
+        (comment-dwim arg)
+      (save-excursion
+        (comment-line arg))))
+
+  (use-package newcomment
+    :config
+    (setq comment-multi-line t)
+    (setq comment-style 'multi-line)
+    (setq comment-fill-column nil)
+    (setq comment-empty-lines t)
+    :bind
+    (("C-;" . gearnode/comment)
+     ("C-:" . comment-kill)
+     ("M-;" . comment-indent)))
+#+END_SRC
+
+*** Erlang
+#+BEGIN_SRC emacs-lisp
+  (defun gearnode/erlang-hook ()
+    (setq-local fill-column 78))
+
+  (use-package erlang
+    :load-path
+    ("/usr/lib/erlang/lib/tools-3.4.2/emacs/")
+    :config
+    (setq erlang-electric-commands '())
+    (setq erlang-man-download-url
+          "https://erlang.org/download/otp_doc_man_23.1.tar.gz")
+    (setq erlang-indent-level 2)
+    :hook
+    (erlang-mode-hook . display-fill-column-indicator-mode)
+    (erlang-mode-hook . gearnode/erlang-hook)
+    :mode
+    (("\\.erl$" . erlang-mode)
+     ("\\.hrl%" . erlang-mode)
+     ("\\.app\\.src$" . erlang-mode)
+     ("rebar\\.config" . erlang-mode)
+     ("rebar\\.lock" . erlang-mode)))
+#+END_SRC
+
+*** Docker
+Support syntax highlighting for Dockerfile file.
+#+BEGIN_SRC emacs-lisp
+  (use-package dockerfile-mode
+    :straight t
+    :mode
+    (("Dockerfile" . dockerfile-mode)
+     ("Dockerfil\\.*" . dockerfile-mode)
+     ("\\.dockerfile$" . dockerfile-mode)))
+#+END_SRC
+
+*** Markdown
+Markdown rich editing support.
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :straight t
+    :config
+    (setq markdown-fontify-code-blocks-natively t)
+    :mode
+    ("\\.md$"))
+#+END_SRC
+
+Enable editing of code block in indirect buffers using `C-c '`
+#+BEGIN_SRC emacs-lisp
+  (use-package edit-indirect
+    :straight t
+    :after markdown-mode)
+#+END_SRC
+
+*** YAML
+Support syntax highlighting for YAML files.
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
+    :straight t
+    :mode
+    (("\\.yaml$" . yaml-mode)
+     ("\\.yml$" . yaml-mode)))
+#+END_SRC
+
+*** Shell scripts
+Enable =sh-mode= in various files that are not obvious shell scripts.
+#+BEGIN_SRC emacs-lisp
+  (use-package sh-script
+    :mode
+    (("PKGBUILD" . sh-mode)))
+#+END_SRC
+
+
+* TO REFACTOR
 #+BEGIN_SRC emacs-lisp
   (use-package helm
     :straight t
@@ -99,207 +410,14 @@ Go back to the last cursor position.
     (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
     (global-set-key (kbd "C-x C-f") 'helm-find-files))
 #+END_SRC
-** Highlight comment keywords (hl-todo)
-This tool apply highlighting to keyword that are normally used in code
-comments.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package hl-todo
-    :straight t
-    :config
-    (setq hl-todo-keyword-faces
-	  '(("TODO"  . "#FF0000")
-	    ("DEBUG" . "#1E90FF")
-	    ("XXX"   . "#1E90FF")))
-    :hook (prog-mode-hook . hl-todo-mode))
-#+END_SRC
-
-** Auto revert mode
-This mode ensures that the buffer is updated whenever the file
-changes. A change can happen externally or by some other tool inside of
-Emacs.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package autorevert
-    :diminish
-    :config
-    (setq auto-revert-verbose t)
-    :hook
-    (after-init-hook . global-auto-revert-mode))
-#+END_SRC
-
-** Newline characters for file ending
-This mode will add a newline character when visiting or saving a buffer
-relevance.
 
 #+BEGIN_SRC emacs-lisp
   (use-package emacs
-    :config
-    (setq mode-require-final-newline 'visit-save))
-#+END_SRC
-
-** Generic feedback
-#+BEGIN_SRC emacs-lisp
-  (use-package
     :config
     (setq frame-title-format '("%b"))
     (setq echo-keystrokes 0.25)
-    (setq default-input-method "greek")
-    (setq ring-bell-function 'ignore)
-
-    (defalias 'yes-or-no-p 'y-or-n-p)
+    (setq default-input-method "greek"))
 #+END_SRC
 
-* Language settings for prose and code
-This section contains configuration for natural or programming
-language enhancement.
 
-** Support for various major modes
-These provide syntax highlighting and additional features for
-environments that are not already supported by Emacs.
 
-*** Markdown (markdown-mode)
-This adds support for markdown file.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package markdown-mode
-    :straight t
-    :config
-    ;; Enable editing of code block in indirect buffers using `C-c '`
-    (use-package edit-indirect :straight t)
-    (setq markdown-fontify-code-blocks-natively t)
-    :mode
-    ("\\.md$"))
-#+END_SRC
-
-*** YAML (yaml-mode)
-#+BEGIN_SRC emacs-lisp
-  (use-package yaml-mode
-    :straight t
-    :mode
-    ("\\.yaml$" "\\.yml$"))
-#+END_SRC
-
-*** CSS (css-mode)
-Disable color previews as it's already manage by the =rainbow-mode=
-(see [[#h:rainbow-mode][relevant section]]).
-#+BEGIN_SRC emacs-lisp
-  (use-package css-mode
-    :mode
-    (("\\.css$" . css-mode)
-     ("\\.scss$" . scss-mode))
-    :config
-    (setq css-font-fontify-colors nil))
-#+END_SRC
-
-*** Shell scripts (sh-mode)
-Enable =sh-mode= in various files that are not obvious shell scripts.
-#+BEGIN_SRC emacs-lisp
-  (use-package sh-script
-    :mode
-    (("PKGBUILD" . sh-mode)))
-#+END_SRC
-
-** Line length (column count)
-The standard line lengh is 80 characters. Having something less allows
-such things like quoting text, indent, etc.
-#+BEGIN_SRC emacs-lisp
-  (use-package emacs
-    :config
-    (setq-default fill-column 72)
-    :hook
-    (after-init-hook . column-number-mode))
-#+END_SRC
-
-** Recognize subwords
-Understand =camelCaseWords= as many words instead of one long word.
-#+BEGIN_SRC emacs-lisp
-  (use-package subword
-    :diminish
-    :hook
-    (prog-mode-hook . subword-mode))
-#+END_SRC
-
-** Comment
-Basic configuration for the =newcomment= mode.
-
-- Replace =M-;= by =C-;=
-- Remove comment with =C-:=
-- Ident comment with =M-;=
-
-#+BEGIN_SRC emacs-lisp
-  (use-package newcomment
-    :config
-    (setq comment-multi-line t)
-    (setq comment-style 'multi-line)
-    (setq comment-fill-column nil)
-    (setq comment-empty-lines t)
-
-    (defun gearnode/comment (&optional arg)
-      (interactive "*P")
-      (if (use-region-p)
-	  (comment-dwim arg)
-	(save-excursion
-	  (comment-line arg))))
-
-    :bind
-    (("C-;" . gearnode/comment)
-     ("C-:" . comment-kill)
-     ("M-;" . comment-indent)))
-#+END_SRC
-
-* History and state
-This sections contains configuration for Emacs state and history
-management.
-
-** Emacs desktop
-Keep Emacs opened buffers after crash or kill.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package desktop
-    :config
-    (setq desktop-auto-save-timeout 300)
-    (setq desktop-dirname "~/.emacs.d/")
-    (setq desktop-base-file-name "desktop")
-    (setq desktop-files-not-to-save nil)
-    (setq desktop-globals-to-clean nil)
-    (setq desktop-load-locked-desktop t)
-    (setq desktop-missing-file-warning nil)
-    (setq desktop-restore-eager 0)
-    (setq desktop-restore-frames nil)
-    (setq desktop-save 'ask-if-new)
-    (desktop-save-mode 1))
-#+END_SRC
-
-Ensure Emacs starts in the =*scratch*= buffer.
-#+BEGIN_SRC emacs-lisp
-  (use-package emacs
-    :init
-    (setq initial-buffer-choice t)
-    (setq inhibit-startup-echo-area-message "gearnode")
-    (setq inhibit-startup-screen t)
-    (setq inhibit-startup-buffer-menu t))
-#+END_SRC
-
-** Record cursor position
-Remember where the point is in any given file.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package saveplace
-    :config
-    (setq save-place-file "~/.emacs.d/saveplace")
-    (setq save-place-forget-unreadable-file t)
-    (save-place-mode 1))
-#+END_SRC
-
-** Minibuffer history (savehist-mode)
-#+BEGIN_SRC emacs-lisp
-  (use-package savehist
-    :config
-    (setq savehist-file "~/.emacs.d/savehist")
-    (setq history-length 1000)
-    (setq history-delete-duplicates t)
-    (setq savehist-save-minibuffer-history t)
-    :hook
-    (after-init-hook . savehist-mode))
-#+END_SRC
