@@ -119,7 +119,7 @@ Ensure Emacs starts in the =*scratch*= buffer.
 #+END_SRC
 
 ** Git
-Emacs version control seems nice, but too does not wrap Git as Magit
+Emacs version control seems nice, but does not wrap Git as Magit
 do. Because I mainly works with Git I use magit instead of VC.
 #+BEGIN_SRC emacs-lisp
   (use-package magit
@@ -269,7 +269,7 @@ Configure SMTP server.
   (setq smtpmail-retries 7)
   (setq smtpmail-queue-mail nil)
   (setq send-mail-function 'smtpmail-send-it)
-  (setq message-send-mail-function 'smtpmail-send-it))
+  (setq message-send-mail-function 'smtpmail-send-it)
 #+END_SRC
 
 Make GNUS not check for any new newsgroups and stops gnus from trying to
