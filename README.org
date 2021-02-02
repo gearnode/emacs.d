@@ -245,12 +245,14 @@ Configure mailboxes.
             "smtp smtp.gmail.com 587 bryan.frimin@exograd.com"))
           ("gmail"
            (address "Bryan Frimin <friminb@gmail.com>")
-           (gcc "nnimap+exograd:[Gmail]/Sent Mail")
            ("X-Message-SMTP-Method"
             "smtp smtp.gmail.com 587 friminb@gmail.com"))))
 
-  (setq gnus-message-archive-method '(nnimap "imap.frimin.fr"))
-  (setq gnus-message-archive-group "Sent Messages")
+  (setq gnus-message-archive-group
+        '(("frimin" "Sent Messages")
+          ("gmail" "[Gmail]/Sent Mail")
+          ("exograd" "[Gmail]/Sent Mail")
+          (".*" "Sent Messages")))
 
   (setq gnus-gcc-mark-as-read t)
 #+END_SRC
