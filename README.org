@@ -362,6 +362,13 @@ Enable =ruby-mode= in various files that are not obvious Ruby files.
      ("rebar\\.lock" . erlang-mode)))
 #+END_SRC
 
+Reconize =escript= shebang.
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'interpreter-mode-alist
+               '("escript" . erlang-mode))
+
+#+END_SRC
+
 *** Docker
 Support syntax highlighting for Dockerfile file.
 #+BEGIN_SRC emacs-lisp
