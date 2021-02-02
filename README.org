@@ -369,7 +369,7 @@ Support syntax highlighting for Dockerfile file.
     :straight t
     :mode
     (("Dockerfile" . dockerfile-mode)
-     ("Dockerfil\\.*" . dockerfile-mode)
+     ("Dockerfile\\.*" . dockerfile-mode)
      ("\\.dockerfile$" . dockerfile-mode)))
 #+END_SRC
 
