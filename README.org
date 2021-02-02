@@ -405,6 +405,13 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
     (("PKGBUILD" . sh-mode)))
 #+END_SRC
 
+** Search with ripgrep
+#+BEGIN_SRC emacs-lisp
+  (use-package rg
+    :straight t
+    :config
+    (rg-enable-default-bindings))
+#+END_SRC
 
 * TO REFACTOR
 #+BEGIN_SRC emacs-lisp
