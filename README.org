@@ -154,7 +154,8 @@ transform HTML email content in text one.
     (setq w3m-user-agent "42")
     (setq w3m-add-user-agent t)
     (setq w3m-default-save-directory "~/Download")
-    (setq w3m-fill-column 80))
+    (setq w3m-fill-column 72)
+    (setq w3m-default-display-inline-images t))
 #+END_SRC
 
 Open link in new Firefox tab.
@@ -282,6 +283,13 @@ filter out outdated newsgroups.
 Kill mail buffer after sending an email.
 #+BEGIN_SRC emacs-lisp
   (setq message-kill-buffer-on-exit t)
+#+END_SRC
+
+Don't deal with HTML news.
+#+BEGIN_SRC emacs-lisp
+  (setq mm-discouraged-alternatives '("text/html" "text/richtext"))
+  (setq mm-text-html-renderer 'w3m)
+  (setq gnus-blocked-images "ads")
 #+END_SRC
 
 ** Languages
@@ -412,6 +420,7 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
     :config
     (rg-enable-default-bindings))
 #+END_SRC
+
 
 * TO REFACTOR
 #+BEGIN_SRC emacs-lisp
