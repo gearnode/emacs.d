@@ -214,9 +214,6 @@ Configure mailboxes.
                   (nnimap-stream ssl)
                   (nnir-search-engine imap)
                   (nnimap-inbox "INBOX")
-                  (signature "Bryan Frimin\n\
-                              https://www.frimin.fr\
-                              bryan@frimin.fr")
                   (nnmail-expiry-target "nnimap+frimin:Deleted Messages")
                   (nnmail-expiry-wait immediate))
           (nnimap "gmail"
@@ -231,9 +228,6 @@ Configure mailboxes.
                   (nnimap-server-port 993)
                   (nnimap-stream ssl)
                   (nnir-search-engine imap)
-                  (signature "Bryan Frimin\n\
-                              https://www.exograd.com\
-                              bryan.frimin@exograd.com")
                   (nnmail-expiry-target "nnimap+exograd:[Gmail]/Trash")
                   (nnmail-expiry-wait immediate))))
 
@@ -241,12 +235,12 @@ Configure mailboxes.
   (setq gnus-posting-styles
         '((".*"
            (address "Bryan Frimin <bryan@frimin.fr>")
-           (gcc "nnimap+frimin:Sent Messages")
+           (signature "Bryan Frimin\nhttps://www.frimin.fr\nbryan@frimin.fr")
            ("X-Message-SMTP-Method"
             "smtp smtp.frimin.fr 587 bryan@frimin.fr"))
           ("exograd"
            (address "Bryan Frimin <bryan.frimin@exograd.com")
-           (gcc "nnimap+exograd:[Gmail]/Sent Mail")
+           (signature "Bryan Frimin\nbryan.frimin@exograd.com")
            ("X-Message-SMTP-Method"
             "smtp smtp.gmail.com 587 bryan.frimin@exograd.com"))
           ("gmail"
