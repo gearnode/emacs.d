@@ -315,6 +315,25 @@ Basic configuration for the =newcomment= mode.
      ("M-;" . comment-indent)))
 #+END_SRC
 
+*** Ruby
+Enable =ruby-mode= in various files that are not obvious Ruby files.
+#+BEGIN_SRC emacs-lisp
+  (defun gearnode/ruby-hook ()
+    (setq-local fill-column 90))
+
+  (use-package ruby-mode
+    :hook
+    (ruby-mode-hook . gearnode/ruby-hook)
+    :mode
+    (("Gemfile" . ruby-mode)
+     ("Rakefile" . ruby-mode)
+     ("\\.rake$" . ruby-mode)
+     ("\\.rb$" . ruby-mode)
+     ("\\.ru$" . ruby-mode)
+     ("\\.gemspec$" . ruby-mode)
+     ("\\.irbrc$" . ruby-mode)))
+#+END_SRC
+
 *** Erlang
 #+BEGIN_SRC emacs-lisp
   (defun gearnode/erlang-hook ()
