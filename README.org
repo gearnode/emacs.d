@@ -76,6 +76,11 @@ Turns off Indent Tabs mode.
   (setq-default indent-tabs-mode nil)
 #+END_SRC
 
+Enable line number mode.
+#+BEGIN_SRC emacs-lisp
+  (setq column-number-mode t)
+#+END_SRC
+
 ** Emacs history and state
 This sections contains configuration for Emacs state and history
 management.
@@ -108,6 +113,39 @@ Ensure Emacs starts in the =*scratch*= buffer.
   (setq inhibit-startup-echo-area-message "gearnode")
   (setq inhibit-startup-screen t)
   (setq inhibit-startup-buffer-menu t)
+#+END_SRC
+
+Configure Emacs backup files to:
+- not pollute the current working directory with emacs backup files.
+- enable backup on versioned file.
+#+BEGIN_SRC emacs-lisp
+  (setq backup-by-copying t)
+
+  (setq version-control t)
+  (setq delete-old-versions t)
+  (setq kept-new-versions 10)
+  (setq kept-old-versions 5)
+
+  ;; By default, Emacs never backs up versioned file.
+  (setq vc-make-backup-files t)
+
+  (setq backup-directory-alist '(("" . "~/.emacs.d/backup/per-save")))
+
+  (defun force-backup-of-buffer ()
+    ;; Make a special "per session" backup at the first save of each
+    ;; emacs session.
+    (when (not buffer-backed-up)
+      ;; Override the default parameters for per-session backups.
+      (let ((backup-directory-alist '(("" . "~/.emacs.d/backup/per-session")))
+            (kept-new-versions 3))
+        (backup-buffer)))
+    ;; Make a "per save" backup on each save.  The first save results in
+    ;; both a per-session and a per-save backup, to keep the numbering
+    ;; of per-save backups consistent.
+    (let ((buffer-backed-up nil))
+      (backup-buffer)))
+
+  (add-hook 'before-save-hook  'force-backup-of-buffer)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -294,6 +332,11 @@ Understand =camelCaseWords= as many words instead of one long word.
   (add-hook 'prog-mode-hook 'subword-mode)
 #+END_SRC
 
+Update copyright when update file.
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
+
 *** Comment
 Basic configuration for the =newcomment= mode.
 - Replace =M-;= by =C-;=
@@ -416,7 +459,7 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
     (("PKGBUILD" . sh-mode)))
 #+END_SRC
 
-** Search with ripgrep
+** Search
 #+BEGIN_SRC emacs-lisp
   (use-package rg
     :straight t
