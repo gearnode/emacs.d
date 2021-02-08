@@ -478,6 +478,10 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
 #+END_SRC
 
 ** Dired
+#+BEGIN_SRC emacs-lisp
+  (require 'dired)
+#+END_SRC
+
 Kill buffers of files/directories that are deleted in dired.
 #+BEGIN_SRC emacs-lisp
   (setq dired-clean-up-buffers-too t)
@@ -485,12 +489,25 @@ Kill buffers of files/directories that are deleted in dired.
 
 Always copy directories recursively instead of asking every time.
 #+BEGIN_SRC emacs-lisp
-(setq dired-recursive-copies 'always)
+  (setq dired-recursive-copies 'always)
 #+END_SRC
 
 Ask before recursively deleting a directory.
 #+BEGIN_SRC emacs-lisp
-(setq dired-recursive-deletes 'top)
+  (setq dired-recursive-deletes 'top)
+#+END_SRC
+
+Dired listing switches:
+- =-a=: Do not ignore entries starting with .
+- =-l=: Use long listing format.
+- =-G=: Do not print group names like 'users'
+- =-h=: Human-readable sizes like 1K, 234M, ..
+- =-v=: Do natural sort .. so the file names starting with . will show
+  up first.
+- =-F=: Classify filenames by appending '*' to executables, '/' to
+  directories, etc.
+#+BEGIN_SRC emacs-lisp
+  (setq dired-listing-switches "-alGhvF --group-directories-first")
 #+END_SRC
 
 * TO REFACTOR
