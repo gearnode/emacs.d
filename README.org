@@ -477,6 +477,21 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
     (rg-enable-default-bindings))
 #+END_SRC
 
+** Dired
+Kill buffers of files/directories that are deleted in dired.
+#+BEGIN_SRC emacs-lisp
+  (setq dired-clean-up-buffers-too t)
+#+END_SRC
+
+Always copy directories recursively instead of asking every time.
+#+BEGIN_SRC emacs-lisp
+(setq dired-recursive-copies 'always)
+#+END_SRC
+
+Ask before recursively deleting a directory.
+#+BEGIN_SRC emacs-lisp
+(setq dired-recursive-deletes 'top)
+#+END_SRC
 
 * TO REFACTOR
 #+BEGIN_SRC emacs-lisp
