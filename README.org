@@ -81,6 +81,11 @@ Enable line number mode.
   (setq column-number-mode t)
 #+END_SRC
 
+Setting custom file.
+#+BEGIN_SRC emacs-lisp
+  (setq custom-file (concat user-emacs-directory "custom.el"))
+#+END_SRC
+
 ** Emacs history and state
 This sections contains configuration for Emacs state and history
 management.
@@ -131,7 +136,7 @@ Configure Emacs backup files to:
 
   (setq backup-directory-alist '(("" . "~/.emacs.d/backup/per-save")))
 
-  (defun force-backup-of-buffer ()
+  (defun gearnode/force-backup-of-buffer ()
     ;; Make a special "per session" backup at the first save of each
     ;; emacs session.
     (when (not buffer-backed-up)
@@ -145,7 +150,7 @@ Configure Emacs backup files to:
     (let ((buffer-backed-up nil))
       (backup-buffer)))
 
-  (add-hook 'before-save-hook  'force-backup-of-buffer)
+  (add-hook 'before-save-hook  'gearnode/force-backup-of-buffer)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -332,9 +337,14 @@ Understand =camelCaseWords= as many words instead of one long word.
   (add-hook 'prog-mode-hook 'subword-mode)
 #+END_SRC
 
-Update copyright when update file.
+See column for syntax with identation.
 #+BEGIN_SRC emacs-lisp
-
+  (use-package highlight-indent-guides
+    :straight t
+    :config
+    (setq highlight-indent-guides-method 'column)
+    :hook
+    ((yaml-mode-hook . highlight-indent-guides-mode)))
 #+END_SRC
 
 *** Comment
