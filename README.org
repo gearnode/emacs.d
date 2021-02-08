@@ -510,6 +510,24 @@ Dired listing switches:
   (setq dired-listing-switches "-alGhvF --group-directories-first")
 #+END_SRC
 
+** Project management
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :straight t
+    :init
+    (projectile-mode +1)
+    :config
+    (setq projectile-project-search-path '("~/workspace"))
+    (setq projectile-indexing-method 'alien)
+    (setq projectile-sort-order 'access-time)
+    (setq projectile-enable-caching t)
+    (setq projectile-file-exists-remote-cache-expire (* 10 60))
+    :bind
+    (:map projectile-mode-map
+          ("s-p" . projectile-command-map)
+          ("C-c p" . projectile-command-map)))
+#+END_SRC
+
 * TO REFACTOR
 #+BEGIN_SRC emacs-lisp
   (use-package helm
