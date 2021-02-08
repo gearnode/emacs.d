@@ -511,6 +511,7 @@ Dired listing switches:
 #+END_SRC
 
 ** Project management
+Basic projectile configuration.
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :straight t
