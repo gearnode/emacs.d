@@ -86,6 +86,25 @@ Setting custom file.
   (setq custom-file (concat user-emacs-directory "custom.el"))
 #+END_SRC
 
+Enable AINSI color in the compilation mode.
+#+BEGIN_SRC emacs-lisp
+  (defun gearnode/compilation-mode-colorize-output ()
+    (read-only-mode -1)
+    (unwind-protect
+        (let ((start compilation-filter-start)
+              (end (point)))
+          (ansi-color-apply-on-region start end))
+      (read-only-mode 1)))
+
+  (use-package compilation-mode
+    :init
+    (require 'ansi-color)
+    :config
+    (setq compilation-scroll-output t)
+    :hook
+    ((compilation-filter-hook . gearnode/compilation-mode-colorize-output)))
+#+END_SRC
+
 ** Emacs history and state
 This sections contains configuration for Emacs state and history
 management.
