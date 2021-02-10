@@ -548,30 +548,35 @@ Basic projectile configuration.
           ("C-c p" . projectile-command-map)))
 #+END_SRC
 
-* TO REFACTOR
+** Incremental completions
 #+BEGIN_SRC emacs-lisp
   (use-package helm
     :straight t
     :ensure t
-    :config
+    :init
     (helm-mode 1)
+    :config
     (setq helm-always-two-window nil)
     (setq helm-default-display-buffer-functions '(display-buffer-in-side-window))
     (setq helm-display-buffer-default-height 16)
     (setq helm-buffer-max-length 30)
     (setq helm-boring-buffer-regexp-list
-	  (list
-	   "\\*"
-	   "\\*Echo Area"
-	   "\\*Minibuf"
-	   "\\*Shell Command Output\\*"
-	   "\\*helm "
-	   "\\*godoc "))
-    (global-set-key (kbd "M-x") 'helm-M-x)
-    (global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-    (global-set-key (kbd "C-x C-f") 'helm-find-files))
+          (list
+           "\\*"
+           "\\*Echo Area"
+           "\\*Minibuf"
+           "\\*Shell Command Output\\*"
+           "\\*helm "
+           "\\*godoc "))
+    :bind
+    (("M-x" . helm-M-x)
+     ("C-x C-b" . helm-buffers-list)
+     ("C-x C-y" . helm-show-kill-ring)
+     ("C-x C-f" . helm-find-files)))
 #+END_SRC
 
+
+* TO REFACTOR
 #+BEGIN_SRC emacs-lisp
   (use-package emacs
     :config
