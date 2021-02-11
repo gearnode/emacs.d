@@ -575,6 +575,15 @@ Basic projectile configuration.
      ("C-x C-f" . helm-find-files)))
 #+END_SRC
 
+** RFC
+#+BEGIN_SRC emacs-lisp
+  (use-package rfc-mode
+    :straight t
+    :config
+    (setq rfc-mode-directory (expand-file-name "~/rfc/"))
+    :bind
+    ("C-c r" . rfc-mode-browse))
+#+END_SRC
 
 * TO REFACTOR
 #+BEGIN_SRC emacs-lisp
