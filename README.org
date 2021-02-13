@@ -235,6 +235,7 @@ Bind =C-c m= to open GNUS.
   (global-set-key (kbd "C-c m") 'gnus)
 #+END_SRC
 
+*** Style
 A bit of frontend to have cleaner interface.
 #+BEGIN_SRC emacs-lisp
   (setq gnus-use-full-window nil)
@@ -261,6 +262,7 @@ A bit of frontend to have cleaner interface.
   (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 #+END_SRC
 
+*** Mailboxes
 Configure mailboxes.
 #+BEGIN_SRC emacs-lisp
   (setq user-mail-address "bryan@frimin.fr")
@@ -319,6 +321,7 @@ Configure mailboxes.
   (setq gnus-gcc-mark-as-read t)
 #+END_SRC
 
+
 Configure SMTP server.
 #+BEGIN_SRC emacs-lisp
   (setq smtpmail-default-smtp-server "smtp.frimin.fr")
@@ -331,6 +334,16 @@ Configure SMTP server.
   (setq message-send-mail-function 'smtpmail-send-it)
 #+END_SRC
 
+*** Contact
+#+BEGIN_SRC emacs-lisp
+  (use-package bbdb
+    :ensure t
+    :straight t
+    :config
+    (setq bbdb-file "~/.bbdb"))
+#+END_SRC
+
+*** Misc
 Make GNUS not check for any new newsgroups and stops gnus from trying to
 filter out outdated newsgroups.
 #+BEGIN_SRC emacs-lisp
