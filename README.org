@@ -451,7 +451,6 @@ Reconize =escript= shebang.
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'interpreter-mode-alist
                '("escript" . erlang-mode))
-
 #+END_SRC
 
 *** PHP
