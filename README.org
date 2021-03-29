@@ -453,6 +453,13 @@ Reconize =escript= shebang.
                '("escript" . erlang-mode))
 #+END_SRC
 
+*** NGINX
+#+BEGIN_SRC emacs-lisp
+  (use-package nginx-mode
+    :straight t)
+
+#+END_SRC
+
 *** PHP
 #+BEGIN_SRC emacs-lisp
   (use-package php-mode
