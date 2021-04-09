@@ -430,7 +430,7 @@ Enable =ruby-mode= in various files that are not obvious Ruby files.
 
   (use-package erlang
     :load-path
-    ("/usr/lib/erlang/lib/tools-3.4.3/emacs/")
+    ("/usr/lib/erlang/lib/tools-3.4.4/emacs/")
     :config
     (setq erlang-electric-commands '())
     (setq erlang-man-download-url
