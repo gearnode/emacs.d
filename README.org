@@ -206,6 +206,16 @@ Configure =git-commit= to follow my commit style
             overlong-summary-line)))
 #+END_SRC
 
+** PDF
+#+BEGIN_SRC emacs-lisp
+  (use-package pdf-tools
+    :straight t
+    :mode
+    ("\\.pdf\\'" . pdf-view-mode)
+    :config
+    (setq-default pdf-view-display-size 'fit-page))
+#+END_SRC
+
 ** Web browser
 I do not use Emacs has web browser but use the web browser binding to
 transform HTML email content in text one.
