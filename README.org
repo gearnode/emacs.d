@@ -532,6 +532,11 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
     (setq terraform-indent-level 4))
 #+END_SRC
 
+*** Go
+#+BEGIN_SRC emacs-lisp
+  (use-package go-mode
+    :straight t)
+#+END_SRC
 ** Search
 #+BEGIN_SRC emacs-lisp
   (use-package rg
