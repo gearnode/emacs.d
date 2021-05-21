@@ -399,6 +399,14 @@ Use unicode bullet instead of asterix.
     :custom
     (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
 #+END_SRC
+
+Add code block darken background color.
+#+BEGIN_SRC emacs-lisp
+  (require 'color)
+  (set-face-attribute 'org-block nil :background
+                      (color-darken-name
+                       (face-attribute 'default :background) 3))
+#+END_SRC
 ** Languages
 Understand =camelCaseWords= as many words instead of one long word.
 #+BEGIN_SRC emacs-lisp
