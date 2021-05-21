@@ -373,6 +373,32 @@ Don't deal with HTML news.
   (setq gnus-blocked-images "ads")
 #+END_SRC
 
+** Org
+Hide the emphasis markup (italic, bold, etc.).
+#+BEGIN_SRC emacs-lisp
+  (setq org-hide-emphasis-markers t)
+#+END_SRC
+
+Fold document section by default.
+#+BEGIN_SRC emacs-lisp
+  (setq org-startup-folded t)
+#+END_SRC
+
+Enable indent and display images by default.
+#+BEGIN_SRC emacs-lisp
+  (setq org-startup-indented t)
+  (setq org-startup-with-inline-images t)
+#+END_SRC
+
+Use unicode bullet instead of asterix.
+#+BEGIN_SRC emacs-lisp
+  (use-package org-superstar
+    :straight t
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
+    :custom
+    (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
+#+END_SRC
 ** Languages
 Understand =camelCaseWords= as many words instead of one long word.
 #+BEGIN_SRC emacs-lisp
