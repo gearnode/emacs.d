@@ -431,8 +431,16 @@ Emacs is not compatible by default with LSP.
     :commands
     (lsp lsp-deferred)
     :init
+    (setq lsp-prefer-flymake nil) ;; use flycheck not flymake
     (setq lsp-log-io t)
     (setq lsp-keymap-prefix "C-c l"))
+#+END_SRC
+
+Install flycheck as lsp mode need it.
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :straight t
+    :init (global-flycheck-mode))
 #+END_SRC
 
 Use company as auto complete package.
