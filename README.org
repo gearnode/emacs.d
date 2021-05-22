@@ -711,11 +711,17 @@ Basic projectile configuration.
     (setq helm-buffer-max-length 30)
     (setq helm-boring-buffer-regexp-list
           (list
-           "\\*"
+           "\\*Customize"
+           "erlang-ls"
+           "magit"
+           "lsp"
+           "\\*org-src"
+           "\\*code-conversion-work\\*"
+           "straight"
            "\\*Echo Area"
            "\\*Minibuf"
            "\\*Shell Command Output\\*"
-           "\\*helm "
+           "\\*helm"
            "\\*godoc "))
     :bind
     (("M-x" . helm-M-x)
