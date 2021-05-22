@@ -659,13 +659,13 @@ Ask before recursively deleting a directory.
 #+END_SRC
 
 Dired listing switches:
-- ~-a~: Do not ignore entries starting with .
+- ~-a~: Do not ignore entries starting with.
 - ~-l~: Use long listing format.
-- ~-G~: Do not print group names like 'users'
-- ~-h~: Human-readable sizes like 1K, 234M, ..
-- ~-v~: Do natural sort .. so the file names starting with . will show
+- ~-G~: Do not print group names like ~users~.
+- ~-h~: Human-readable sizes like 1K, 234M, etc.
+- ~-v~: Do natural sort ~..~ so the file names starting with ~.~ will show
   up first.
-- ~-F~: Classify filenames by appending '*' to executables, '/' to
+- ~-F~: Classify filenames by appending ~*~ to executables, ~/~ to
   directories, etc.
 #+BEGIN_SRC emacs-lisp
   (setq dired-listing-switches "-alGhvF --group-directories-first")
