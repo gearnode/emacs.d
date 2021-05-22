@@ -374,20 +374,16 @@ Don't deal with HTML news.
 #+END_SRC
 
 ** Org
-Hide the emphasis markup (italic, bold, etc.).
 #+BEGIN_SRC emacs-lisp
-  (setq org-hide-emphasis-markers t)
-#+END_SRC
-
-Fold document section by default.
-#+BEGIN_SRC emacs-lisp
-  (setq org-startup-folded t)
-#+END_SRC
-
-Enable indent and display images by default.
-#+BEGIN_SRC emacs-lisp
-  (setq org-startup-indented t)
-  (setq org-startup-with-inline-images t)
+  (use-package org
+    :straight t
+    :ensure org-plus-contrib
+    :config
+    (setq org-hide-emphasis-markers t)
+    (setq org-startup-folded t)
+    (setq org-startup-indented t)
+    (setq org-startup-with-inline-images t)
+    (setq org-ellipsis " ▼"))
 #+END_SRC
 
 Use unicode bullet instead of asterix.
@@ -400,13 +396,22 @@ Use unicode bullet instead of asterix.
     (org-superstar-headline-bullets-list '("◉" "○" "●" "○" "●" "○" "●")))
 #+END_SRC
 
-Add code block darken background color.
+Customize org appearance.
 #+BEGIN_SRC emacs-lisp
   (require 'color)
-  (set-face-attribute 'org-block nil :background
-                      (color-darken-name
-                       (face-attribute 'default :background) 3))
+
+  (set-face-attribute 'org-block nil
+                      :background (color-darken-name
+                                   (face-attribute 'default :background) 3))
+
+  (set-face-attribute 'org-block-begin-line nil
+                      :background (color-darken-name
+                                   (face-attribute 'default :background) 3)
+                      :foreground "#4d4d4d")
+
+  (set-face-underline 'org-ellipsis nil)
 #+END_SRC
+
 ** Languages
 Understand =camelCaseWords= as many words instead of one long word.
 #+BEGIN_SRC emacs-lisp
@@ -570,6 +575,7 @@ Reconize =escript= shebang.
     :ensure t)
 
 #+END_SRC
+
 *** Docker
 Support syntax highlighting for Dockerfile file.
 #+BEGIN_SRC emacs-lisp
@@ -630,6 +636,7 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
   (use-package go-mode
     :straight t)
 #+END_SRC
+
 ** Search
 #+BEGIN_SRC emacs-lisp
   (use-package rg
