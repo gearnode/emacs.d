@@ -452,6 +452,14 @@ Use company as auto complete package.
     (company-idle-delay 0.0))
 #+END_SRC
 
+LSP mode use yasnippet.
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :straight t
+    :hook
+    (after-init . yas-global-mode))
+#+END_SRC
+
 *** Comment
 Basic configuration for the =newcomment= mode.
 - Replace =M-;= by =C-;=
