@@ -511,11 +511,11 @@ Enable =ruby-mode= in various files that are not obvious Ruby files.
 
   (use-package erlang
     :load-path
-    ("/usr/lib/erlang/lib/tools-3.4.4/emacs/")
+    ("/usr/lib/erlang/lib/tools-3.5/emacs/")
     :config
     (setq erlang-electric-commands '())
     (setq erlang-man-download-url
-          "https://erlang.org/download/otp_doc_man_23.1.tar.gz")
+          "https://erlang.org/download/otp_doc_man_24.0.tar.gz")
     (setq erlang-indent-level 2)
     :hook
     (erlang-mode-hook . display-fill-column-indicator-mode)
