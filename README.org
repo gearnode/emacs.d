@@ -735,6 +735,3 @@ Basic projectile configuration.
     (setq echo-keystrokes 0.25)
     (setq default-input-method "greek"))
 #+END_SRC
-
-
-
