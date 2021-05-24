@@ -470,7 +470,7 @@ LSP mode use yasnippet.
   (use-package yasnippet
     :straight t
     :hook
-    (after-init . yas-global-mode))
+    (after-init-hook . yas-global-mode))
 #+END_SRC
 
 Configure lsp ui mode
