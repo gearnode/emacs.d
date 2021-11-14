@@ -16,7 +16,7 @@ an Apple II.
 
 Configure font and font size.
 #+BEGIN_SRC emacs-lisp
-  (face-spec-set 'default '((t :font "Noto Sans Mono")))
+  (face-spec-set 'default '((t :font "NotoMono Nerd Font")))
   (set-face-attribute 'default nil :height 115)
 #+END_SRC
 
