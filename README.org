@@ -621,7 +621,8 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
 #+BEGIN_SRC emacs-lisp
   (use-package sh-script
     :mode
-    (("PKGBUILD" . sh-mode)))
+    (("PKGBUILD" . sh-mode)
+     ("Stackfile" . sh-mode)))
 #+END_SRC
 
 *** Terraform
