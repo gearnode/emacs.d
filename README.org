@@ -688,7 +688,7 @@ Basic projectile configuration.
     :init
     (projectile-mode +1)
     :config
-    (setq projectile-project-search-path '("~/workspace"))
+    (setq projectile-project-search-path '("~/Workspace"))
     (setq projectile-indexing-method 'alien)
     (setq projectile-sort-order 'access-time)
     (setq projectile-enable-caching t)
