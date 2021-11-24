@@ -1,5 +1,5 @@
 # -*- mopde: snippet -*-
-# name: gen_server
+# name: module
 # --
 %% Copyright (c) 2021 Bryan Frimin <$1>.
 %%
@@ -19,3 +19,4 @@
               (file-name-sans-extension (or (buffer-file-name) (buffer-name))))`).
 
 -export([$2]).
+
