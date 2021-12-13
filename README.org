@@ -14,6 +14,12 @@ an Apple II.
   (setq gc-cons-threshold 100000000) ; 100MB instead of 800KB
 #+END_SRC
 
+Use =gls= instead of =ls= on BSD system.
+#+BEGIN_SRC emacs-lisp
+  (if (eq system-type 'berkeley-unix)
+      (progn (setq insert-directory-program "/usr/local/bin/gls")))
+#+END_SRC
+
 Configure font and font size.
 #+BEGIN_SRC emacs-lisp
   (face-spec-set 'default '((t :font "NotoMono Nerd Font")))
