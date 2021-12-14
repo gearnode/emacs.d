@@ -41,6 +41,11 @@ Add a newline character when visiting or saving a buffer relevance.
   (setq mode-require-final-newline 'visit-save)
 #+END_SRC
 
+Keep code file clean.
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'before-save-hook 'whitespace-cleanup)
+#+END_SRC
+
 Highligh keywords that are normally used in code comments.
 #+BEGIN_SRC emacs-lisp
   (use-package hl-todo
