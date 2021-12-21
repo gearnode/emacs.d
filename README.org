@@ -52,9 +52,9 @@ Highligh keywords that are normally used in code comments.
     :straight t
     :config
     (setq hl-todo-keyword-faces
-	  '(("TODO"  . "#FF0000")
-	    ("DEBUG" . "#1E90FF")
-	    ("XXX"   . "#1E90FF")))
+          '(("TODO"  . "#FF0000")
+            ("DEBUG" . "#1E90FF")
+            ("XXX"   . "#1E90FF")))
     :hook (prog-mode-hook . hl-todo-mode))
 #+END_SRC
 
