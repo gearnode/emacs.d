@@ -679,6 +679,12 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
     :straight t)
 #+END_SRC
 
+*** Typescript
+#+BEGIN_SRC emacs-lisp
+  (use-package typescript-mode
+    :straight t)
+#+END_SRC
+
 ** Search
 #+BEGIN_SRC emacs-lisp
   (use-package rg
