@@ -406,11 +406,11 @@ Don't deal with HTML news.
     (setq org-startup-with-inline-images t)
     (setq org-ellipsis " ▼")
     (setq org-todo-keywords
-          '((sequence "TODO" "DOING" "BLOCKED" "VERIFY" "|" "DONE" "DELEGATED")))
+          '((sequence "TODO" "WORK" "STOP" "VERIFY" "|" "DONE" "DELEGATED")))
     (setq org-todo-keyword-faces
           '(("TODO" . org-warning)
-            ("DOING" . "yellow")
-            ("BLOCKED" . "red")
+            ("WORK" . "yellow")
+            ("STOP" . "red")
             ("VERIFY" . "orange")
             ("DONE" . "green")
             ("DELEGATED" .  "blue"))))
