@@ -679,6 +679,11 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
     :straight t)
 #+END_SRC
 
+*** Javascript
+#+BEGIN_SRC emacs-lisp
+  (setq js-indent-level 2)
+#+END_SRC
+
 *** Typescript
 #+BEGIN_SRC emacs-lisp
   (use-package typescript-mode
