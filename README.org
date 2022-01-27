@@ -116,6 +116,13 @@ Enable ANSI color in the compilation mode.
     ((compilation-filter-hook . gearnode/compilation-mode-colorize-output)))
 #+END_SRC
 
+Disable menu bar, toolbar and scrollbar.
+#+BEGIN_SRC emacs-lisp
+  (menu-bar-mode -1)
+  (toggle-scroll-bar -1)
+  (tool-bar-mode -1)
+#+END_SRC
+
 ** Emacs history and state
 This sections contains configuration for Emacs state and history
 management.
