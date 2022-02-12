@@ -330,12 +330,14 @@ Configure mailboxes.
   (setq gnus-posting-styles
         '((".*"
            (address "Bryan Frimin <bryan@frimin.fr>")
-           (signature "Bryan Frimin\nhttps://www.frimin.fr\nbryan@frimin.fr")
+           (signature
+            "Bryan Frimin\nhttps://www.frimin.fr\nbryan@frimin.fr")
            ("X-Message-SMTP-Method"
             "smtp smtp.frimin.fr 587 bryan@frimin.fr"))
           ("exograd"
            (address "Bryan Frimin <bryan.frimin@exograd.com")
-           (signature "Bryan Frimin\nbryan.frimin@exograd.com")
+           (signature
+            "Bryan Frimin\nbryan.frimin@exograd.com")
            ("X-Message-SMTP-Method"
             "smtp smtp.gmail.com 587 bryan.frimin@exograd.com"))
           ("gmail"
