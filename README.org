@@ -306,21 +306,24 @@ Configure mailboxes.
                   (nnimap-stream ssl)
                   (nnir-search-engine imap)
                   (nnimap-inbox "INBOX")
-                  (nnmail-expiry-target "nnimap+frimin:Deleted Messages")
+                  (nnmail-expiry-target
+                   "nnimap+frimin:Trash")
                   (nnmail-expiry-wait immediate))
           (nnimap "gmail"
                   (nnimap-address "imap.gmail.com")
                   (nnimap-server-port 993)
                   (nnimap-stream ssl)
                   (nnir-search-engine imap)
-                  (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
+                  (nnmail-expiry-target
+                   "nnimap+gmail:[Gmail]/Trash")
                   (nnmail-expiry-wait immediate))
           (nnimap "exograd"
                   (nnimap-address "imap.gmail.com")
                   (nnimap-server-port 993)
                   (nnimap-stream ssl)
                   (nnir-search-engine imap)
-                  (nnmail-expiry-target "nnimap+exograd:[Gmail]/Trash")
+                  (nnmail-expiry-target
+                   "nnimap+exograd:[Gmail]/Trash")
                   (nnmail-expiry-wait immediate))))
 
   ;; Reply to mails with matching email address
