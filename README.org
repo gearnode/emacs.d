@@ -204,6 +204,8 @@ do. Because I mainly works with Git I use magit instead of VC.
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :straight t
+    :config
+    (setq magit-log-margin '(t "%F %R" magit-log-margin-width t 18))
     :bind
     ("C-c g" . magit-status))
 #+END_SRC
