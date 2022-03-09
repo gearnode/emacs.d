@@ -714,7 +714,9 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
   (use-package rust-mode
     :straight t
     :config
-    (setq rust-format-on-save t))
+    (setq rust-format-on-save t)
+    :hook
+    (rust-mode-hook . lsp-deferred))
 #+end_src
 
 ** Search
