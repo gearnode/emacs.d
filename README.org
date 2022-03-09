@@ -709,6 +709,14 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
     (setq-default typescript-indent-level 2))
 #+END_SRC
 
+*** Rust
+#+begin_src emacs-lisp
+  (use-package rust-mode
+    :straight t
+    :config
+    (setq rust-format-on-save t))
+#+end_src
+
 ** Search
 #+BEGIN_SRC emacs-lisp
   (use-package rg
