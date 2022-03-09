@@ -690,7 +690,10 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
 *** Go
 #+BEGIN_SRC emacs-lisp
   (use-package go-mode
-    :straight t)
+    :straight t
+    :hook
+    (go-mode-hook . lsp-deferred)
+    (before-save-hook . gofmt-before-save))
 #+END_SRC
 
 *** Javascript
