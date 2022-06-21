@@ -591,8 +591,7 @@ Enable =ruby-mode= in various files that are not obvious Ruby files.
     (setq-local fill-column 78))
 
   (use-package erlang
-    :load-path
-    ("/usr/local/lib/erlang/lib/tools-3.5/emacs/")
+    :straight t
     :config
     (setq erlang-electric-commands '())
     (setq erlang-man-download-url
