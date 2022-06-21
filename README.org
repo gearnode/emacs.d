@@ -718,6 +718,14 @@ Enable =sh-mode= in various files that are not obvious shell scripts.
     (rust-mode-hook . lsp-deferred))
 #+end_src
 
+*** x509 certificates
+
+#+BEGIN_SRC emacs-lisp
+(use-package x509-mode
+  :straight t
+  :ensure t)
+#+END_SRC
+
 ** Search
 #+BEGIN_SRC emacs-lisp
   (use-package rg
