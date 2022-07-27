@@ -198,6 +198,16 @@ Configure Emacs backup files to:
   (add-hook 'after-init-hook 'savehist-mode)
 #+END_SRC
 
+Use VS Code theme.
+#+BEGIN_SRC emacs-lisp
+  (use-package vscode-dark-plus-theme
+    :straight (:host github :repo "ianyepan/vscode-dark-plus-emacs-theme" :branch "master")
+    :ensure t
+    :config
+    (load-theme 'vscode-dark-plus t))
+
+#+END_SRC
+
 ** Git
 Emacs version control seems nice, but does not wrap Git as Magit
 do. Because I mainly works with Git I use magit instead of VC.
