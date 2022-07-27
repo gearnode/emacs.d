@@ -318,14 +318,6 @@ Configure mailboxes.
                   (nnir-search-engine imap)
                   (nnmail-expiry-target
                    "nnimap+gmail:[Gmail]/Trash")
-                  (nnmail-expiry-wait immediate))
-          (nnimap "exograd"
-                  (nnimap-address "imap.gmail.com")
-                  (nnimap-server-port 993)
-                  (nnimap-stream ssl)
-                  (nnir-search-engine imap)
-                  (nnmail-expiry-target
-                   "nnimap+exograd:[Gmail]/Trash")
                   (nnmail-expiry-wait immediate))))
 
   ;; Reply to mails with matching email address
@@ -336,22 +328,15 @@ Configure mailboxes.
             "Bryan Frimin\nhttps://www.frimin.fr\nbryan@frimin.fr")
            ("X-Message-SMTP-Method"
             "smtp smtp.frimin.fr 587 bryan@frimin.fr"))
-          ("exograd"
-           (address "Bryan Frimin <bryan.frimin@exograd.com")
-           (signature
-            "Bryan Frimin\nbryan.frimin@exograd.com")
-           ("X-Message-SMTP-Method"
-            "smtp smtp.gmail.com 587 bryan.frimin@exograd.com"))
           ("gmail"
            (address "Bryan Frimin <friminb@gmail.com>")
            ("X-Message-SMTP-Method"
             "smtp smtp.gmail.com 587 friminb@gmail.com"))))
 
   (setq gnus-message-archive-group
-        '(("frimin" "Sent Messages")
+        '(("frimin" "nnimap+frimin:Sent")
           ("gmail" "[Gmail]/Sent Mail")
-          ("exograd" "[Gmail]/Sent Mail")
-          (".*" "Sent Messages")))
+          (".*" "nnimap+frimin:Sent")))
 
   (setq gnus-gcc-mark-as-read t)
 #+END_SRC
