@@ -654,6 +654,13 @@ Enable editing of code block in indirect buffers using `C-c '`
     :after markdown-mode)
 #+END_SRC
 
+*** JSONNET
+Support syntax highlighting for JSONNET file.
+#+BEGIN_SRC emacs-lisp
+  (use-package jsonnet-mode
+    :straight t)
+#+END_SRC
+
 *** YAML
 Support syntax highlighting for YAML files.
 #+BEGIN_SRC emacs-lisp
