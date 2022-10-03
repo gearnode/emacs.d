@@ -12,11 +12,34 @@
 ;; OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 ;; PERFORMANCE OF THIS SOFTWARE.
 
-;; Initialise installed packages.
-(setq package-enable-at-startup t)
+;; no need of package-quickstart since I use `straight.el' as package
+;; manager.
+(setq package-quickstart nil)
 
-;; Allow loading from the package cache.
-(setq package-quickstart t)
+;; disable package enable at startup, since I am using `straight.el'
+(setq package-enable-at-startup nil)
+(advice-add #'package--ensure-init-file :override #'ignore)
 
-;; Do not resize the frame at this early stage.
+;; comment out this line if you are not using emacs native compilation
+;; branch native compile elisp files as they are loaded
+;; (setq comp-deferred-compilation t)
+
+;; defer garbage collection further back in the startup process.
+(setq gc-cons-threshold most-positive-fixnum
+      gc-cons-percentage 0.6)
+
+;; prevent the glimpse of un-styled Emacs by disabling these UI
+;; elements early.
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+
+;; resizing the Emacs frame can be a terribly expensive part of changing
+;; the font. By inhibiting this, I easily halve startup times with fonts
+;; that are larger than the system default.
 (setq frame-inhibit-implied-resize t)
+
+;; ignore X resources; its settings would be redundant with the other
+;; settings in this file and can conflict with later config
+;; (particularly where the cursor color is concerned).
+(advice-add #'x-apply-session-resources :override #'ignore)
