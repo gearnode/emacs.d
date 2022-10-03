@@ -12,36 +12,28 @@
 ;; OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 ;; PERFORMANCE OF THIS SOFTWARE.
 
-(setq straight-use-package-by-default nil)
+
+;; this makes each use-package form also invoke straight.el to install the
+;; package, unless otherwise specified.
+(setq straight-use-package-by-default t)
 
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
+      (bootstrap-version 6))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
         (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
          'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+;; install use-package
 (straight-use-package 'use-package)
 
-; Configure `use-package`
-(eval-when-compile
-  (setq use-package-always-ensure nil)  ; ESSENTIAL for `straight.el'
-  (setq use-package-always-defer nil)
-  (setq use-package-always-demand nil)
-  (setq use-package-expand-minimally nil)
-  (setq use-package-compute-statistics nil)
-  (setq use-package-hook-name-suffix nil))
-
-;; provides `straight-x-clean-unused-repos' (part of `straight.el')
-(use-package straight-x)
-
-; (use-package org)
 (require 'org)
 (org-babel-load-file "~/.emacs.d/README.org")
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)

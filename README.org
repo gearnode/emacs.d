@@ -108,6 +108,7 @@ Enable ANSI color in the compilation mode.
       (read-only-mode 1)))
 
   (use-package compilation-mode
+    :straight nil
     :init
     (require 'ansi-color)
     :config
@@ -550,6 +551,7 @@ Basic configuration for the =newcomment= mode.
         (comment-line arg))))
 
   (use-package newcomment
+    :straight nil
     :config
     (setq comment-multi-line t)
     (setq comment-style 'multi-line)
